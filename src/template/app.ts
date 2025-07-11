@@ -956,8 +956,8 @@ export function htmlPage(): string {
             chartData.datasets[1].data.push(entry.hum);
             chartData.datasets[2].data.push(entry.soil);
             chartData.datasets[3].data.push(entry.light);
-            // Keep only last 50
-            if (chartData.labels.length > 50) {
+            // Keep only last 20
+            if (chartData.labels.length > 20) {
               chartData.labels.shift();
               chartData.datasets.forEach((ds) => ds.data.shift());
             }

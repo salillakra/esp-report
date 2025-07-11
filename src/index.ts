@@ -11,9 +11,9 @@ const { upgradeWebSocket, websocket } = createBunWebSocket<ServerWebSocket>();
 const dashboardClients = new Set<ServerWebSocket>();
 let esp32Client: ServerWebSocket | null = null;
 
-// Store last 50 data entries
+// Store last 20 data entries
 const dataHistory: any[] = [];
-const MAX_HISTORY = 50;
+const MAX_HISTORY = 20;
 
 app.get("/", async (c) => {
   return c.html(htmlPage());
