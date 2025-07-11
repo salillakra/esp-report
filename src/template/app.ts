@@ -887,7 +887,7 @@ export function htmlPage(): string {
       </div>
     </div>
     <script>
-      const ws = new WebSocket("wss://df563c37e143.ngrok-free.app/ws/dashboard");
+      const ws = new WebSocket("wss://esp-report.onrender.com/ws/dashboard");
       function animateValue(id, value, suffix = "") {
         const el = document.getElementById(id);
         if (el.innerText !== value + suffix) {

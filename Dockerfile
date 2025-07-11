@@ -5,7 +5,6 @@ WORKDIR /app
 
 COPY . .
 
-
 RUN bun install
 
 
