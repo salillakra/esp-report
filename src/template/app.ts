@@ -116,7 +116,7 @@ export function htmlPage(): string {
             </div>
             <div class="mt-4 text-center">
               <p class="text-sm text-green-600 font-medium">
-                📡 Updating every 100ms
+                📡 Updating every 300ms
               </p>
             </div>
           </div>
@@ -232,7 +232,7 @@ export function htmlPage(): string {
       const img = document.getElementById('live-img');
       setInterval(() => {
         img.src = '/public/latest.jpg?t=' + Date.now();
-      }, 100);
+      }, 300);
 
       function animateValue(id, value, suffix = "") {
         const el = document.getElementById(id);
