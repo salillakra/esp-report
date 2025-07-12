@@ -165,7 +165,8 @@ app.get(
           return;
         }
         console.log("📥 From ESP32:", data);
-        // Save history
+
+        // Save sensor data history
         if (
           typeof data.temp !== "undefined" &&
           typeof data.hum !== "undefined" &&
@@ -176,7 +177,8 @@ app.get(
           dataHistory.push({ ...data, timestamp: Date.now() });
           if (dataHistory.length > MAX_HISTORY) dataHistory.shift();
         }
-        // Forward to all dashboards
+
+        // Forward all data to all dashboards (including flash status)
         dashboardClients.forEach((client) => {
           if (client.readyState === 1) {
             client.send(JSON.stringify(data));
@@ -227,9 +229,15 @@ app.get(
           console.error("❌ Invalid JSON from dashboard");
           return;
         }
-        console.log("� From dashboard:", data);
-        // 🎯 Relay pump command to ESP32
-        if (data.action === "pump_on" || data.action === "pump_off") {
+        console.log("📱 From dashboard:", data);
+
+        // 🎯 Relay commands to ESP32
+        if (
+          data.action === "pump_on" ||
+          data.action === "pump_off" ||
+          data.action === "flash_on" ||
+          data.action === "flash_off"
+        ) {
           if (esp32Client && esp32Client.readyState === 1) {
             esp32Client.send(JSON.stringify(data));
             console.log("🔁 Command sent to ESP32:", data);
@@ -237,7 +245,8 @@ app.get(
             console.warn("⚠️ ESP32 not connected");
           }
         }
-        // You can also broadcast it to all dashboards if needed
+
+        // Broadcast to all dashboards if needed
         dashboardClients.forEach((client) => {
           if (client.readyState === 1 && ws.raw && client !== ws.raw) {
             client.send(JSON.stringify(data));

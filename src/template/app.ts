@@ -13,19 +13,19 @@ export function htmlPage(): string {
         theme: {
           extend: {
             animation: {
-              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'bounce-slow': 'bounce 2s infinite',
-              'fade-in': 'fadeIn 0.5s ease-in-out',
+              "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              "bounce-slow": "bounce 2s infinite",
+              "fade-in": "fadeIn 0.5s ease-in-out",
             },
             keyframes: {
               fadeIn: {
-                '0%': { opacity: '0', transform: 'translateY(10px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' }
-              }
-            }
-          }
-        }
-      }
+                "0%": { opacity: "0", transform: "translateY(10px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+            },
+          },
+        },
+      };
     </script>
     <style>
       .glass {
@@ -53,8 +53,13 @@ export function htmlPage(): string {
         animation: float 3s ease-in-out infinite;
       }
       @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
       }
       .status-glow {
         box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
@@ -64,23 +69,34 @@ export function htmlPage(): string {
         overflow: hidden;
       }
       .feed-container::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(45deg, transparent 49%, rgba(255,255,255,0.1) 50%, transparent 51%);
+        background: linear-gradient(
+          45deg,
+          transparent 49%,
+          rgba(255, 255, 255, 0.1) 50%,
+          transparent 51%
+        );
         animation: scan 2s linear infinite;
         pointer-events: none;
       }
       @keyframes scan {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
       }
     </style>
   </head>
-  <body class="min-h-screen bg-gradient-to-br from-emerald-50 via-green-100 to-teal-200 p-4">
+  <body
+    class="min-h-screen bg-gradient-to-br from-emerald-50 via-green-100 to-teal-200 p-4"
+  >
     <div class="max-w-6xl mx-auto space-y-8">
       <!-- Header -->
       <div class="text-center py-8">
@@ -91,7 +107,9 @@ export function htmlPage(): string {
           Real-time IoT Plant Care System
         </p>
         <div class="mt-4 flex justify-center">
-          <div class="px-4 py-2 bg-green-100 rounded-full text-green-800 text-sm font-semibold animate-pulse-slow">
+          <div
+            class="px-4 py-2 bg-green-100 rounded-full text-green-800 text-sm font-semibold animate-pulse-slow"
+          >
             ● Live Monitoring Active
           </div>
         </div>
@@ -105,11 +123,13 @@ export function htmlPage(): string {
             <h3 class="text-xl font-bold text-green-800 mb-4 text-center">
               📹 Live Plant Feed
             </h3>
-            <div class="feed-container rounded-2xl overflow-hidden bg-gradient-to-br from-green-50 to-emerald-100">
-              <img 
-                id="live-img" 
-                src="/public/latest.jpg" 
-                alt="Live ESP32 Feed" 
+            <div
+              class="feed-container rounded-2xl overflow-hidden bg-gradient-to-br from-green-50 to-emerald-100"
+            >
+              <img
+                id="live-img"
+                src="/public/latest.jpg"
+                alt="Live ESP32 Feed"
                 class="w-full h-64 object-cover transition-all duration-300 hover:scale-105"
                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjI0MCIgdmlld0JveD0iMCAwIDMyMCAyNDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iMjQwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xNjAgMTIwTDE0MCA5MEgxODBMMTYwIDEyMFoiIGZpbGw9IiM2QjdCODAiLz4KPHA+Tm8gSW1hZ2UgQXZhaWxhYmxlPC9wPgo8L3N2Zz4='"
               />
@@ -118,6 +138,16 @@ export function htmlPage(): string {
               <p class="text-sm text-green-600 font-medium">
                 📡 Updating every 300ms
               </p>
+            </div>
+            <!-- Flash Control Button -->
+            <div class="mt-4 flex justify-center">
+              <button
+                id="flash-btn"
+                onclick="toggleFlash()"
+                class="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white px-6 py-3 rounded-full shadow-lg font-semibold text-lg transform hover:scale-105 transition-all duration-300 hover:shadow-xl"
+              >
+                💡 Flash ON
+              </button>
             </div>
           </div>
         </div>
@@ -130,42 +160,92 @@ export function htmlPage(): string {
             </h3>
             <div class="grid grid-cols-2 gap-6">
               <!-- Temperature -->
-              <div class="glass rounded-2xl p-6 text-center transform hover:scale-105 transition-all duration-300">
+              <div
+                class="glass rounded-2xl p-6 text-center transform hover:scale-105 transition-all duration-300"
+              >
                 <div class="text-4xl mb-2">🌡️</div>
-                <p class="text-sm text-green-600 font-medium mb-2">Temperature</p>
-                <p id="temp" class="text-3xl font-bold text-green-800 value-animate">-- °C</p>
+                <p class="text-sm text-green-600 font-medium mb-2">
+                  Temperature
+                </p>
+                <p
+                  id="temp"
+                  class="text-3xl font-bold text-green-800 value-animate"
+                >
+                  -- °C
+                </p>
                 <div class="mt-2 h-2 bg-gray-200 rounded-full">
-                  <div id="temp-bar" class="h-full bg-gradient-to-r from-blue-400 to-red-400 rounded-full transition-all duration-500" style="width: 0%"></div>
+                  <div
+                    id="temp-bar"
+                    class="h-full bg-gradient-to-r from-blue-400 to-red-400 rounded-full transition-all duration-500"
+                    style="width: 0%"
+                  ></div>
                 </div>
               </div>
 
               <!-- Humidity -->
-              <div class="glass rounded-2xl p-6 text-center transform hover:scale-105 transition-all duration-300">
+              <div
+                class="glass rounded-2xl p-6 text-center transform hover:scale-105 transition-all duration-300"
+              >
                 <div class="text-4xl mb-2">💧</div>
                 <p class="text-sm text-green-600 font-medium mb-2">Humidity</p>
-                <p id="hum" class="text-3xl font-bold text-green-800 value-animate">-- %</p>
+                <p
+                  id="hum"
+                  class="text-3xl font-bold text-green-800 value-animate"
+                >
+                  -- %
+                </p>
                 <div class="mt-2 h-2 bg-gray-200 rounded-full">
-                  <div id="hum-bar" class="h-full bg-gradient-to-r from-yellow-400 to-blue-400 rounded-full transition-all duration-500" style="width: 0%"></div>
+                  <div
+                    id="hum-bar"
+                    class="h-full bg-gradient-to-r from-yellow-400 to-blue-400 rounded-full transition-all duration-500"
+                    style="width: 0%"
+                  ></div>
                 </div>
               </div>
 
               <!-- Soil Moisture -->
-              <div class="glass rounded-2xl p-6 text-center transform hover:scale-105 transition-all duration-300">
+              <div
+                class="glass rounded-2xl p-6 text-center transform hover:scale-105 transition-all duration-300"
+              >
                 <div class="text-4xl mb-2">🌿</div>
-                <p class="text-sm text-green-600 font-medium mb-2">Soil Moisture</p>
-                <p id="soil" class="text-3xl font-bold text-green-800 value-animate">-- %</p>
+                <p class="text-sm text-green-600 font-medium mb-2">
+                  Soil Moisture
+                </p>
+                <p
+                  id="soil"
+                  class="text-3xl font-bold text-green-800 value-animate"
+                >
+                  -- %
+                </p>
                 <div class="mt-2 h-2 bg-gray-200 rounded-full">
-                  <div id="soil-bar" class="h-full bg-gradient-to-r from-red-400 to-green-400 rounded-full transition-all duration-500" style="width: 0%"></div>
+                  <div
+                    id="soil-bar"
+                    class="h-full bg-gradient-to-r from-red-400 to-green-400 rounded-full transition-all duration-500"
+                    style="width: 0%"
+                  ></div>
                 </div>
               </div>
 
               <!-- Light -->
-              <div class="glass rounded-2xl p-6 text-center transform hover:scale-105 transition-all duration-300">
+              <div
+                class="glass rounded-2xl p-6 text-center transform hover:scale-105 transition-all duration-300"
+              >
                 <div class="text-4xl mb-2">🔆</div>
-                <p class="text-sm text-green-600 font-medium mb-2">Light Level</p>
-                <p id="light" class="text-3xl font-bold text-green-800 value-animate">--</p>
+                <p class="text-sm text-green-600 font-medium mb-2">
+                  Light Level
+                </p>
+                <p
+                  id="light"
+                  class="text-3xl font-bold text-green-800 value-animate"
+                >
+                  --
+                </p>
                 <div class="mt-2 h-2 bg-gray-200 rounded-full">
-                  <div id="light-bar" class="h-full bg-gradient-to-r from-gray-400 to-yellow-400 rounded-full transition-all duration-500" style="width: 0%"></div>
+                  <div
+                    id="light-bar"
+                    class="h-full bg-gradient-to-r from-gray-400 to-yellow-400 rounded-full transition-all duration-500"
+                    style="width: 0%"
+                  ></div>
                 </div>
               </div>
             </div>
@@ -227,11 +307,11 @@ export function htmlPage(): string {
 
     <script>
       const ws = new WebSocket("wss://esp-report.onrender.com/ws/dashboard");
-      
+
       // Live image feed
-      const img = document.getElementById('live-img');
+      const img = document.getElementById("live-img");
       setInterval(() => {
-        img.src = '/public/latest.jpg?t=' + Date.now();
+        img.src = "/public/latest.jpg?t=" + Date.now();
       }, 300);
 
       function animateValue(id, value, suffix = "") {
@@ -248,7 +328,7 @@ export function htmlPage(): string {
       function updateProgressBar(id, value, max = 100) {
         const bar = document.getElementById(id);
         const percentage = Math.min((value / max) * 100, 100);
-        bar.style.width = percentage + '%';
+        bar.style.width = percentage + "%";
       }
 
       // Chart.js setup
@@ -298,7 +378,7 @@ export function htmlPage(): string {
       function addDataToChart(entry) {
         const ts = new Date(entry.timestamp || Date.now());
         const label = ts.toLocaleTimeString();
-        
+
         chartData.labels.push(label);
         chartData.datasets[0].data.push(entry.temp);
         chartData.datasets[1].data.push(entry.hum);
@@ -335,38 +415,46 @@ export function htmlPage(): string {
             maintainAspectRatio: false,
             interaction: { mode: "index", intersect: false },
             plugins: {
-              legend: { 
+              legend: {
                 position: "top",
                 labels: {
                   font: { size: 12 },
                   usePointStyle: true,
-                  pointStyle: 'circle'
-                }
+                  pointStyle: "circle",
+                },
               },
               title: { display: false },
             },
             scales: {
               x: {
                 grid: { color: "rgba(16,185,129,0.1)" },
-                ticks: { color: "#065f46" }
+                ticks: { color: "#065f46" },
               },
               y: {
                 type: "linear",
                 display: true,
                 position: "left",
-                title: { display: true, text: "Temperature (°C)", color: "#065f46" },
+                title: {
+                  display: true,
+                  text: "Temperature (°C)",
+                  color: "#065f46",
+                },
                 grid: { color: "rgba(16,185,129,0.1)" },
-                ticks: { color: "#065f46" }
+                ticks: { color: "#065f46" },
               },
               y1: {
                 type: "linear",
                 display: true,
                 position: "right",
-                title: { display: true, text: "Humidity (%)", color: "#065f46" },
+                title: {
+                  display: true,
+                  text: "Humidity (%)",
+                  color: "#065f46",
+                },
                 grid: { drawOnChartArea: false },
                 min: 0,
                 max: 100,
-                ticks: { color: "#065f46" }
+                ticks: { color: "#065f46" },
               },
               y2: {
                 type: "linear",
@@ -375,10 +463,10 @@ export function htmlPage(): string {
                 min: 0,
                 max: 100,
               },
-              y3: { 
-                type: "linear", 
-                display: false, 
-                position: "right" 
+              y3: {
+                type: "linear",
+                display: false,
+                position: "right",
               },
             },
           },
@@ -423,6 +511,11 @@ export function htmlPage(): string {
 
           // Add to chart
           addDataToChart({ ...data, timestamp: Date.now() });
+
+          // Update flash button state if present
+          if (typeof data.flash !== "undefined") {
+            updateFlashBtn(data.flash);
+          }
         }
       };
 
@@ -439,7 +532,30 @@ export function htmlPage(): string {
           ws.send(JSON.stringify({ action: cmd }));
         }
       }
+
+      // Flash control logic
+      let flashState = false;
+      function toggleFlash() {
+        flashState = !flashState;
+        sendCommand(flashState ? "flash_on" : "flash_off");
+        updateFlashBtn(flashState);
+      }
+      function updateFlashBtn(state) {
+        const btn = document.getElementById("flash-btn");
+        if (!btn) return;
+        if (state) {
+          btn.innerText = "💡 Flash OFF";
+          btn.classList.remove("from-yellow-400", "to-yellow-600");
+          btn.classList.add("from-gray-400", "to-gray-600");
+        } else {
+          btn.innerText = "💡 Flash ON";
+          btn.classList.remove("from-gray-400", "to-gray-600");
+          btn.classList.add("from-yellow-400", "to-yellow-600");
+        }
+        flashState = !!state;
+      }
     </script>
   </body>
-</html>`;
+</html>
+`;
 }
